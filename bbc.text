@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+<script type="text/javascript">
+
+function search_key()
+{
+var settings = {
+  
+"async": true,
+  
+"crossDomain": true,
+ 
+ "url": "http://localhost:5000/bbc/"+ $("#searchid").val(),
+ 
+ "method": "GET",
+  
+"headers": {
+   
+ "cache-control": "no-cache",
+ "Access-Control-Allow-Origin":true,
+   
+ "postman-token": "711b9f91-5e42-cb04-6c4b-cb1ee5250fe9"
+ 
+ }
+}
+
+
+$.ajax(settings).done(function (response) {
+
+    $('#example').DataTable( {
+
+        data: response.result,
+		 columns: [
+            { title: "article_title" },
+            { title: "article_url" },
+            { title: "body" },
+            { title: "url" },
+            
+
+        ]
+
+    } );
+});
+}
+</script>
+<body>
+
+<h2>BBC Search</h2>
+
+<button type="button" onclick="search_key()">Search</button>
+<input type="text" id="searchid"/>
+<br/>
+<table width="100%" class="display" id="example" cellspacing="0">
+</table>
+
+</body>
+</html>
